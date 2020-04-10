@@ -1,0 +1,132 @@
+package com.github.wangcanfeng01.freedom.ragnaros.controller;
+
+import com.github.wangcanfeng01.freedom.ragnaros.service.DistributedService;
+import com.github.wangcanfeng01.freedom.ragnaros.service.HostInfoService;
+import com.github.wangcanfeng01.freedom.ragnaros.utils.HostUtils;
+import com.github.wangcanfeng01.freedom.ragnaros.vo.RagnarosResponse;
+import com.github.wangcanfeng01.freedom.ragnaros.vo.ServiceThroughput;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.github.wangcanfeng01.freedom.ragnaros.annotations.CustomPath;
+import com.github.wangcanfeng01.freedom.ragnaros.calculator.ManagementService;
+import com.github.wangcanfeng01.freedom.ragnaros.constant.RagnarosConsts;
+
+import java.util.LinkedList;
+import java.util.List;
+
+
+/**
+ * @author wangcanfeng
+ * @description 面向用户的访问接口
+ * @date Created in 10:56-2020/4/7
+ * @since 2.0.0
+ */
+@RestController
+public class RagnarosController {
+
+    private final DistributedService distributedService;
+
+    private final HostInfoService hostInfoService;
+
+    @Autowired
+    private ManagementService managementService;
+
+    @Autowired
+    public RagnarosController(DistributedService distributedService, @Nullable HostInfoService hostInfoService) {
+        this.distributedService = distributedService;
+        this.hostInfoService = hostInfoService;
+    }
+
+
+    /**
+     * 功能描述: 获取所有实例的吞吐量详情
+     *
+     * @return 返回信息： 各个实例的吞吐量情况集合
+     * @author wangcanfeng
+     * @date 2020/4/7-16:11
+     * @since 2.0.0
+     */
+    @GetMapping("/ui/throughput/all/watch")
+    @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_WATCH_ALL)
+    public RagnarosResponse<List<ServiceThroughput>> watchAll() {
+        List<ServiceThroughput> throughputList = new LinkedList<>();
+        throughputList.add(managementService.watch());
+        String localhost = getHost();
+        throughputList.addAll(distributedService.watchOthers(localhost));
+        return new RagnarosResponse<>(throughputList);
+    }
+
+    /**
+     * 功能描述: 打开所有实例的吞吐量监控页面
+     *
+     * @author wangcanfeng
+     * @date 2020/4/7-16:11
+     * @since 2.0.0
+     */
+    @PostMapping("/ui/throughput/all/open")
+    @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_OPEN_ALL)
+    public RagnarosResponse<String> openAll() {
+        String localhost = getHost();
+        managementService.open();
+        distributedService.openOthers(localhost);
+        return RagnarosResponse.ok();
+    }
+
+    /**
+     * 功能描述: 关闭所有实例的吞吐量监控页面
+     *
+     * @author wangcanfeng
+     * @date 2020/4/7-16:11
+     * @since 2.0.0
+     */
+    @PostMapping("/ui/throughput/all/close")
+    @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_CLOSE_ALL)
+    public RagnarosResponse<String> closeAll() {
+        String localhost = getHost();
+        managementService.close();
+        distributedService.closeOthers(localhost);
+        return RagnarosResponse.ok();
+    }
+
+
+    @GetMapping("/ui/throughput/single/watch")
+    @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_WATCH_SINGLE)
+    public RagnarosResponse<ServiceThroughput> watchSingle() {
+        return new RagnarosResponse<>(managementService.watch());
+    }
+
+    /**
+     * 功能描述: 打开吞吐量观测器
+     *
+     * @author wangcanfeng
+     * @date 2020/4/2-10:49
+     * @since 2.0.0
+     */
+    @PostMapping("/ui/throughput/single/open")
+    @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_OPEN_SINGLE)
+    public RagnarosResponse<String> openWatch() {
+        managementService.open();
+        return RagnarosResponse.ok();
+    }
+
+    /**
+     * 功能描述: 关闭吞吐量观测器
+     *
+     * @author wangcanfeng
+     * @date 2020/4/2-10:49
+     * @since 2.0.0
+     */
+    @PostMapping("/ui/throughput/single/close")
+    @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_CLOSE_SINGLE)
+    public RagnarosResponse<String> closeWatch() {
+        managementService.close();
+        return RagnarosResponse.ok();
+    }
+
+    private String getHost() {
+        return hostInfoService == null ? HostUtils.getLocalhost() : hostInfoService.getHost();
+    }
+}
