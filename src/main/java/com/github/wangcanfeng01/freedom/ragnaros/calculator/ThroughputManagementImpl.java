@@ -24,10 +24,11 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * 吞吐量管理器
+ * Created in 18:50-2020/4/7
+ *
  * @author wangcanfeng
- * @description 吞吐量管理器
- * @date Created in 18:50-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Service
 public class ThroughputManagementImpl implements ManagementService {
@@ -111,10 +112,10 @@ public class ThroughputManagementImpl implements ManagementService {
 
     /**
      * 功能描述: 打开监测管理器
+     * 2020/4/7-20:44
      *
      * @author wangcanfeng
-     * @date 2020/4/7-20:44
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @Override
     public void open() {
@@ -157,12 +158,12 @@ public class ThroughputManagementImpl implements ManagementService {
         });
     }
 
-    /**
+     /**
      * 功能描述: 关闭监测管理器
+     * 2020/4/7-20:44
      *
      * @author wangcanfeng
-     * @date 2020/4/7-20:44
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @Override
     public void close() {
@@ -173,12 +174,12 @@ public class ThroughputManagementImpl implements ManagementService {
 
     /**
      * 功能描述: 设置花费时间
+     * 2020/4/7-20:44
      *
      * @param name        吞吐量项目名称
      * @param currentCost 当前次处理花费
      * @author wangcanfeng
-     * @date 2020/4/7-20:44
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @Override
     public void setCost(String name, long currentCost) {
@@ -190,11 +191,11 @@ public class ThroughputManagementImpl implements ManagementService {
 
     /**
      * 功能描述: 增加吞吐量计数
+     * 2020/4/7-20:44
      *
      * @param name 吞吐量项目名称
      * @author wangcanfeng
-     * @date 2020/4/7-20:44
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @Override
     public void addTotalThroughput(String name) {
@@ -206,12 +207,11 @@ public class ThroughputManagementImpl implements ManagementService {
 
     /**
      * 功能描述: 获取所有需要要观测的管道信息
+     * 2020/4/2-9:45
      *
-     * @param
      * @return 返回信息： 管道检测信息
      * @author wangcanfeng
-     * @date 2020/4/2-9:45
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @Override
     public ServiceThroughput watch() {
@@ -238,10 +238,10 @@ public class ThroughputManagementImpl implements ManagementService {
 
     /**
      * 功能描述: 重置数据
+     * 2020/4/2-11:10
      *
      * @author wangcanfeng
-     * @date 2020/4/2-11:10
-     * @since 2.0.0
+     * @since 1.0.0
      */
     private void resetData() {
         totalThroughputMap.forEach((k, v) -> v.set(0L));
