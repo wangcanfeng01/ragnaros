@@ -19,10 +19,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * controller自定义路径映射
+ * Created in 14:56-2020/4/7
+ *
  * @author wangcanfeng
- * @description controller自定义路径映射
- * @date Created in 14:56-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class ControllerMappingHandler extends RequestMappingHandlerMapping {
     private final Map<String, HandlerMethod> handlerMethods = new LinkedHashMap<String, HandlerMethod>();
