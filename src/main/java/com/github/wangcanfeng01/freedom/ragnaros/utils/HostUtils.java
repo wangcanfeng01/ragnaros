@@ -10,19 +10,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Created in 21:12-2020/4/7
+ *
  * @author wangcanfeng
- * @description
- * @date Created in 21:12-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class HostUtils {
     /**
      * 功能描述: 获取本地ip地址，目前仅从回环地址和localhost中获取ip，优先选取非
+     * 2020/4/3-12:19
      *
      * @return 返回信息： 本机ip地址
      * @author wangcanfeng
-     * @date 2020/4/3-12:19
-     * @since 2.0.0
+     * @since 1.0.0
      */
     public static String getLocalhost() {
         List<String> ips = new LinkedList<>();
