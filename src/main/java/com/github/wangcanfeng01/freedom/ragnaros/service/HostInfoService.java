@@ -2,18 +2,18 @@
 package com.github.wangcanfeng01.freedom.ragnaros.service;
 
 /**
+ * Created in 21:16-2020/4/7
+ *
  * @author wangcanfeng
- * @description
- * @date Created in 21:16-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface HostInfoService {
     /**
      * 功能简述：获取本机地址
+     * 2020/4/7-23:34
      *
      * @return 本实例地址
-     * @Author: wangcanfeng
-     * @date: 2020/4/7-23:34
+     * @author wangcanfeng
      */
     String getHost();
 }
