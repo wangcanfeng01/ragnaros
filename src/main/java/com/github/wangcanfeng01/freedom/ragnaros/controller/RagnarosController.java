@@ -19,10 +19,11 @@ import java.util.List;
 
 
 /**
+ * 面向用户的访问接口
+ * Created in 10:56-2020/4/7
+ *
  * @author wangcanfeng
- * @description 面向用户的访问接口
- * @date Created in 10:56-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 @RestController
 public class RagnarosController {
@@ -43,11 +44,11 @@ public class RagnarosController {
 
     /**
      * 功能描述: 获取所有实例的吞吐量详情
+     * 2020/4/7-16:11
      *
-     * @return 返回信息： 各个实例的吞吐量情况集合
+     * @return 各个实例的吞吐量情况集合
      * @author wangcanfeng
-     * @date 2020/4/7-16:11
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @GetMapping("/ui/throughput/all/watch")
     @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_WATCH_ALL)
@@ -61,10 +62,11 @@ public class RagnarosController {
 
     /**
      * 功能描述: 打开所有实例的吞吐量监控页面
+     * 2020/4/7-16:11
      *
+     * @return 开启成功
      * @author wangcanfeng
-     * @date 2020/4/7-16:11
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @PostMapping("/ui/throughput/all/open")
     @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_OPEN_ALL)
@@ -77,10 +79,11 @@ public class RagnarosController {
 
     /**
      * 功能描述: 关闭所有实例的吞吐量监控页面
+     * 2020/4/7-16:11
      *
+     * @return 关闭成功
      * @author wangcanfeng
-     * @date 2020/4/7-16:11
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @PostMapping("/ui/throughput/all/close")
     @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_CLOSE_ALL)
@@ -92,6 +95,14 @@ public class RagnarosController {
     }
 
 
+    /**
+     * 功能描述: 查看当前实例的吞吐量情况
+     * Created in 2020/4/11-10:25
+     *
+     * @return 当前实例的吞吐量情况
+     * @author wangcanfeng
+     * @since 1.0.0
+     */
     @GetMapping("/ui/throughput/single/watch")
     @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_WATCH_SINGLE)
     public RagnarosResponse<ServiceThroughput> watchSingle() {
@@ -100,10 +111,11 @@ public class RagnarosController {
 
     /**
      * 功能描述: 打开吞吐量观测器
+     * 2020/4/2-10:49
      *
+     * @return 打开成功
      * @author wangcanfeng
-     * @date 2020/4/2-10:49
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @PostMapping("/ui/throughput/single/open")
     @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_OPEN_SINGLE)
@@ -114,10 +126,11 @@ public class RagnarosController {
 
     /**
      * 功能描述: 关闭吞吐量观测器
+     * 2020/4/2-10:49
      *
+     * @return 关闭成功
      * @author wangcanfeng
-     * @date 2020/4/2-10:49
-     * @since 2.0.0
+     * @since 1.0.0
      */
     @PostMapping("/ui/throughput/single/close")
     @CustomPath(pathKey = RagnarosConsts.API_THROUGHPUT_CLOSE_SINGLE)
