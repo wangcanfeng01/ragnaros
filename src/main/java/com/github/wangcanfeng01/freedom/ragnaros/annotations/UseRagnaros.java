@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
+ * 启用Ragnaros
+ * Created in 10:42-2020/4/7
  * @author wangcanfeng
- * @description 启用Ragnaros
- * @date Created in 10:42-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
