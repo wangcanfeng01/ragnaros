@@ -3,10 +3,11 @@ package com.github.wangcanfeng01.freedom.ragnaros.annotations;
 import java.lang.annotation.*;
 
 /**
+ * 自定义路径
+ * Created in 15:04-2020/4/7
+ *
  * @author wangcanfeng
- * @description 自定义路径
- * @date Created in 15:04-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
