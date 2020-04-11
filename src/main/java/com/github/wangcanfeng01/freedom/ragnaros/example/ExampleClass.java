@@ -7,9 +7,10 @@ import com.github.wangcanfeng01.freedom.ragnaros.annotations.ThroughputScan;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 注解使用示例
+ * 2020/4/10-21:38
+ *
  * @author wangcanfeng
- * @time 2020/4/10-21:38
- * @function 注解使用示例
  **/
 @Component
 @ThroughputScan
