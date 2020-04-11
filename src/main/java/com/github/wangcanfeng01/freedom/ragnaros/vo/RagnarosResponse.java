@@ -1,10 +1,11 @@
 package com.github.wangcanfeng01.freedom.ragnaros.vo;
 
 /**
+ * 返回结构体
+ * Created in 16:19-2020/4/7
+ *
  * @author wangcanfeng
- * @description 返回结构体
- * @date Created in 16:19-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class RagnarosResponse<T> {
     private String code;
