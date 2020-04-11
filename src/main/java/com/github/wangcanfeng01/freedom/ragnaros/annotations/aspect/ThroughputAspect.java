@@ -14,10 +14,10 @@ import com.github.wangcanfeng01.freedom.ragnaros.calculator.ManagementService;
 import java.lang.reflect.Method;
 
 /**
+ * 吞吐量统计切面
+ * Created in 13:57-2020/4/7
  * @author wangcanfeng
- * @description 吞吐量统计切面
- * @date Created in 13:57-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Aspect
 @Component
