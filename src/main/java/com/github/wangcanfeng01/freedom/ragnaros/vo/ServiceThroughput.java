@@ -3,10 +3,11 @@ package com.github.wangcanfeng01.freedom.ragnaros.vo;
 import java.util.List;
 
 /**
+ * 服务器的吞吐量情况
+ * Created in 12:00-2020/4/7
+ *
  * @author wangcanfeng
- * @description 服务器的吞吐量情况
- * @date Created in 12:00-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class ServiceThroughput {
 
