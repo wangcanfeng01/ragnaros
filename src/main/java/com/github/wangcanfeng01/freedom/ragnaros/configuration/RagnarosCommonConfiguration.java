@@ -15,10 +15,11 @@ import org.springframework.web.servlet.HandlerMapping;
 import java.util.Map;
 
 /**
+ * 通用配置类
+ * Created in 10:50-2020/4/7
+ *
  * @author wangcanfeng
- * @description 通用配置类
- * @date Created in 10:50-2020/4/7
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Configuration
 @ComponentScan(basePackages = {
