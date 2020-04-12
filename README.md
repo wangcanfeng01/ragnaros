@@ -5,7 +5,7 @@
 ### character2
 Do not invade code logic
 ### character3
-Have a front page for easy viewing
+Have a friendly ui for easy viewing
 ## function
 ``` xml
 <dependency>
