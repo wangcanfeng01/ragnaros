@@ -7,6 +7,13 @@ Do not invade code logic
 ### character3
 Have a front page for easy viewing
 ## function
+``` xml
+<dependency>
+      <groupId>com.github.wangcanfeng01</groupId>
+      <artifactId>freedom-ragnaros</artifactId>
+      <version>1.0.RELEASE</version>
+</dependency>
+```
 ### function1
 We can customize the interface request address in application.properties
 api.throughput.watch.all=/ui/throughput/watch
