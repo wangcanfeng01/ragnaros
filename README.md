@@ -1,7 +1,7 @@
 # ragnaros
 ##character
 ### character1
- Monitor data throughput
+Monitor data throughput
 ### character2
 Do not invade code logic
 ### character3
@@ -54,5 +54,7 @@ public class RagnarosConfiguration  implements WebMvcConfigurer {
     }
 }
 ```
+### function3
+extends AbstractDistributedService or directly implements DistributedService ,you can obatins others instances throughput
 # finally
 ![展示结果.JPG](https://upload-images.jianshu.io/upload_images/8350955-9229b76d3cdd254f.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
