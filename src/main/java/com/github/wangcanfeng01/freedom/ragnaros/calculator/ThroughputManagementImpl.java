@@ -120,7 +120,7 @@ public class ThroughputManagementImpl implements ManagementService {
     @Override
     public void open() {
         if (working) {
-            System.out.println("i am already at work");
+            System.out.println("i am already at working");
             // 如果已经在工作中，就不做处理
             return;
         }
@@ -144,7 +144,7 @@ public class ThroughputManagementImpl implements ManagementService {
                     throughputPerSecondMap.put(item, CalculateUtils.division(times, RagnarosConsts.DEFAULT_UNIT_TIME, 4));
                     String average;
                     if (times == 0) {
-                        average = costWindowMap.get(item).toString();
+                        average = "0.0000";
                     } else {
                         average = CalculateUtils.division(costWindowMap.get(item).get(), times, 4);
                     }
@@ -158,7 +158,7 @@ public class ThroughputManagementImpl implements ManagementService {
         });
     }
 
-     /**
+    /**
      * 功能描述: 关闭监测管理器
      * 2020/4/7-20:44
      *
@@ -167,6 +167,9 @@ public class ThroughputManagementImpl implements ManagementService {
      */
     @Override
     public void close() {
+        if (!working) {
+            System.out.println("i am already stopped");
+        }
         resetData();
         working = false;
         System.out.println("stopping pipe management");
@@ -246,9 +249,9 @@ public class ThroughputManagementImpl implements ManagementService {
     private void resetData() {
         totalThroughputMap.forEach((k, v) -> v.set(0L));
         lastThroughputMap.forEach((k, v) -> v.set(0L));
-        throughputPerSecondMap.forEach((k, v) -> v = "0");
+        throughputPerSecondMap.forEach((k, v) -> v = "0.0000");
         costWindowMap.forEach((k, v) -> v.set(0L));
-        averageCostMap.forEach((k, v) -> v = "0");
+        averageCostMap.forEach((k, v) -> v = "0.0000");
         lastCostMap.forEach((k, v) -> v.set(0L));
     }
 }
