@@ -26,23 +26,26 @@ public class ServiceThroughput {
         return host;
     }
 
-    public void setHost(String host) {
+    public ServiceThroughput setHost(String host) {
         this.host = host;
+        return this;
     }
 
     public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public ServiceThroughput setStatus(Boolean status) {
         this.status = status;
+        return this;
     }
 
     public List<ThroughputData> getDataList() {
         return dataList;
     }
 
-    public void setDataList(List<ThroughputData> dataList) {
+    public ServiceThroughput setDataList(List<ThroughputData> dataList) {
         this.dataList = dataList;
+        return this;
     }
 }

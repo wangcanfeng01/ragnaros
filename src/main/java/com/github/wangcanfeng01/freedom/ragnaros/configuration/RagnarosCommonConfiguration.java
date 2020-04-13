@@ -1,5 +1,6 @@
 package com.github.wangcanfeng01.freedom.ragnaros.configuration;
 
+import com.github.wangcanfeng01.freedom.ragnaros.calculator.ManagementService;
 import com.github.wangcanfeng01.freedom.ragnaros.constant.RagnarosConsts;
 import com.github.wangcanfeng01.freedom.ragnaros.controller.RagnarosController;
 import com.github.wangcanfeng01.freedom.ragnaros.service.DistributedService;
@@ -39,6 +40,8 @@ public class RagnarosCommonConfiguration {
     private ApplicationContext context;
     @Autowired(required = false)
     private HostInfoService hostInfoService;
+    @Autowired
+    private ManagementService managementService;
 
     @Bean
     public HandlerMapping ragnarosControllerMapping(Environment environment) {
@@ -53,6 +56,7 @@ public class RagnarosCommonConfiguration {
         } else {
             defaultService = map.get(RagnarosConsts.DEFAULT_DISTRIBUTED_SERVICE);
         }
-        return new ControllerMappingHandler(environment, new RagnarosController(defaultService, hostInfoService));
+        return new ControllerMappingHandler(environment, new RagnarosController(defaultService, managementService,
+                hostInfoService));
     }
 }
