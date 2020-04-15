@@ -99,6 +99,7 @@ public class ThroughputManagementImpl implements ManagementService {
             for (Method method : methods) {
                 Throughput function = AnnotationUtils.findAnnotation(method, Throughput.class);
                 if (function != null) {
+                    HistoryThroughputContainer.initItem(function.name());
                     totalThroughputMap.put(function.name(), new AtomicLong(0L));
                     lastThroughputMap.put(function.name(), new AtomicLong(0L));
                     throughputPerSecondMap.put(function.name(), "0");
@@ -141,12 +142,14 @@ public class ThroughputManagementImpl implements ManagementService {
                 for (String item : totalThroughputMap.keySet()) {
                     long currentTotal = totalThroughputMap.get(item).get();
                     long times = totalThroughputMap.get(item).get() - lastThroughputMap.get(item).get();
-                    throughputPerSecondMap.put(item, CalculateUtils.division(times, RagnarosConsts.DEFAULT_UNIT_TIME, 4));
+                    String throughput = CalculateUtils.division(times, RagnarosConsts.DEFAULT_UNIT_TIME, CalculateUtils.DEFAULT_PRECISION);
+                    throughputPerSecondMap.put(item, throughput);
+                    HistoryThroughputContainer.refreshData(item, throughput);
                     String average;
                     if (times == 0) {
                         average = "0.0000";
                     } else {
-                        average = CalculateUtils.division(costWindowMap.get(item).get(), times, 4);
+                        average = CalculateUtils.division(costWindowMap.get(item).get(), times, CalculateUtils.DEFAULT_PRECISION);
                     }
                     averageCostMap.put(item, average);
                     lastThroughputMap.get(item).set(currentTotal);
@@ -226,6 +229,7 @@ public class ThroughputManagementImpl implements ManagementService {
             data.setHost(hostInfoService.getHost());
         }
         data.setStatus(working);
+        data.setHistoryTotalThroughput(HistoryThroughputContainer.getTotalData());
         List<ThroughputData> list = new ArrayList<>(totalThroughputMap.size());
         for (String item : totalThroughputMap.keySet()) {
             ThroughputData single = new ThroughputData();
@@ -233,6 +237,7 @@ public class ThroughputManagementImpl implements ManagementService {
             single.setItemName(item);
             single.setLastCost(lastCostMap.get(item).get());
             single.setThroughput(throughputPerSecondMap.get(item));
+            single.setHistoryThroughput(HistoryThroughputContainer.getData(item));
             list.add(single);
         }
         data.setDataList(list);
@@ -247,6 +252,7 @@ public class ThroughputManagementImpl implements ManagementService {
      * @since 1.0.0
      */
     private void resetData() {
+        HistoryThroughputContainer.resetItem();
         totalThroughputMap.forEach((k, v) -> v.set(0L));
         lastThroughputMap.forEach((k, v) -> v.set(0L));
         throughputPerSecondMap.forEach((k, v) -> v = "0.0000");

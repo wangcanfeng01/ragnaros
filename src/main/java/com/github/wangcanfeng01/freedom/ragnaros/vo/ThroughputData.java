@@ -1,5 +1,6 @@
 package com.github.wangcanfeng01.freedom.ragnaros.vo;
 
+
 /**
  * 吞吐量数据
  * Created in 11:56-2020/4/7
@@ -27,6 +28,8 @@ public class ThroughputData {
      * 时间窗内的吞吐量
      */
     private String throughput;
+
+    private ChartInfo historyThroughput;
 
     public String getItemName() {
         return itemName;
@@ -58,6 +61,14 @@ public class ThroughputData {
 
     public void setThroughput(String throughput) {
         this.throughput = throughput;
+    }
+
+    public ChartInfo getHistoryThroughput() {
+        return historyThroughput;
+    }
+
+    public void setHistoryThroughput(ChartInfo historyThroughput) {
+        this.historyThroughput = historyThroughput;
     }
 }
 

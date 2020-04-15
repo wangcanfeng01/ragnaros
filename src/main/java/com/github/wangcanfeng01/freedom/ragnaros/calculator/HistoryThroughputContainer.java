@@ -1,6 +1,14 @@
 package com.github.wangcanfeng01.freedom.ragnaros.calculator;
 
+import com.github.wangcanfeng01.freedom.ragnaros.utils.CalculateUtils;
+import com.github.wangcanfeng01.freedom.ragnaros.vo.ChartInfo;
+import com.github.wangcanfeng01.freedom.ragnaros.vo.NameAndValue;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,14 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created in 19:50-2020/4/13
  *
  * @author wangcanfeng
- * @since 2.0.0
+ * @since 1.2
  */
-public final class HistoryThroughputContainer {
+final class HistoryThroughputContainer {
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     /**
      * 这里写明了用链表，方便数据移除和添加，减少数据拷贝的消耗
      */
-    private final static Map<String, LinkedList<String>> HISTORY_THROUGHPUT = new ConcurrentHashMap<>();
+    private final static Map<String, LinkedList<NameAndValue>> HISTORY_THROUGHPUT = new ConcurrentHashMap<>();
     /**
      * 默认链表长度为30
      */
@@ -32,9 +41,9 @@ public final class HistoryThroughputContainer {
      *
      * @param capacity 历史记录的容量
      * @author wangcanfeng
-     * @since 2.0.0
+     * @since 1.2
      */
-    public static void setHistoryCapacity(int capacity) {
+    static void setHistoryCapacity(int capacity) {
         historyCapacity = capacity;
     }
 
@@ -44,10 +53,14 @@ public final class HistoryThroughputContainer {
      *
      * @param name 吞吐量名称
      * @author wangcanfeng
-     * @since 2.0.0
+     * @since 1.2
      */
-    public static void initItem(String name) {
-        HISTORY_THROUGHPUT.computeIfAbsent(name, k -> new LinkedList<>());
+    static void initItem(String name) {
+        LinkedList<NameAndValue> history = new LinkedList<>();
+        for (int i = 0; i < historyCapacity; i++) {
+            history.add(new NameAndValue(String.valueOf(i), "0.0000"));
+        }
+        HISTORY_THROUGHPUT.computeIfAbsent(name, k -> history);
     }
 
     /**
@@ -57,15 +70,75 @@ public final class HistoryThroughputContainer {
      * @param name       吞吐量名称
      * @param throughput 当前吞吐量
      * @author wangcanfeng
-     * @since 2.0.0
+     * @since 1.2
      */
-    public static void refreshData(String name, String throughput) {
-        LinkedList<String> list = HISTORY_THROUGHPUT.get(name);
+    static void refreshData(String name, String throughput) {
+        LinkedList<NameAndValue> list = HISTORY_THROUGHPUT.get(name);
         if (list.size() > historyCapacity) {
             list.removeFirst();
-            list.addLast(throughput);
-        } else {
-            list.addLast(throughput);
         }
+        list.addLast(new NameAndValue(LocalTime.now().format(formatter), throughput));
     }
+
+    /**
+     * 功能简述：根据吞吐量名称获取吞吐量历史信息
+     * Created in 2020/4/15-22:18
+     *
+     * @param name 吞吐率名称
+     * @return 吞吐量历史信息
+     * @author wangcanfeng
+     * @since 1.2
+     */
+    static ChartInfo getData(String name) {
+        ChartInfo chartInfo = new ChartInfo();
+        List<String> names = new LinkedList<>();
+        List<String> values = new LinkedList<>();
+        chartInfo.setDataNames(names);
+        chartInfo.setDataValues(values);
+        HISTORY_THROUGHPUT.get(name).forEach(v -> {
+            names.add(v.getName());
+            values.add(v.getValue());
+        });
+        return chartInfo;
+    }
+
+    static ChartInfo getTotalData() {
+        List<NameAndValue> total = new ArrayList<>(historyCapacity);
+        for (int i = 0; i < historyCapacity; i++) {
+            total.add(new NameAndValue("", "0.0000"));
+        }
+        HISTORY_THROUGHPUT.forEach((k, v) -> {
+            for (int i = 0; i < historyCapacity; i++) {
+                NameAndValue item = new NameAndValue();
+                item.setValue(CalculateUtils.addition(total.get(i).getValue(), v.get(i).getValue(), CalculateUtils.DEFAULT_PRECISION));
+                item.setName(v.get(i).getName());
+                total.set(i, item);
+            }
+        });
+        ChartInfo chartInfo = new ChartInfo();
+        List<String> names = new LinkedList<>();
+        List<String> values = new LinkedList<>();
+        chartInfo.setDataNames(names);
+        chartInfo.setDataValues(values);
+        total.forEach(v -> {
+            names.add(v.getName());
+            values.add(v.getValue());
+        });
+        return chartInfo;
+    }
+
+    /**
+     * 功能简述：重置数据
+     * Created in 2020/4/15-22:10
+     *
+     * @author wangcanfeng
+     * @since 1.2
+     */
+    static void resetItem() {
+        HISTORY_THROUGHPUT.forEach((k, v) -> {
+            v.forEach(data -> data.setValue("0.0000"));
+        });
+    }
+
+
 }

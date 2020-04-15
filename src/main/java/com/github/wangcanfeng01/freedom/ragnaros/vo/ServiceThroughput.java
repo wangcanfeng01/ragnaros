@@ -16,11 +16,19 @@ public class ServiceThroughput {
      */
     private String host;
     /**
-     *
+     * 状态
      */
     private Boolean status;
 
+    /**
+     * 具体数据集
+     */
     private List<ThroughputData> dataList;
+
+    /**
+     * 历史吞吐量信息。当前实例历史记录的汇总
+     */
+    private ChartInfo historyTotalThroughput;
 
     public String getHost() {
         return host;
@@ -47,5 +55,13 @@ public class ServiceThroughput {
     public ServiceThroughput setDataList(List<ThroughputData> dataList) {
         this.dataList = dataList;
         return this;
+    }
+
+    public ChartInfo getHistoryTotalThroughput() {
+        return historyTotalThroughput;
+    }
+
+    public void setHistoryTotalThroughput(ChartInfo historyTotalThroughput) {
+        this.historyTotalThroughput = historyTotalThroughput;
     }
 }

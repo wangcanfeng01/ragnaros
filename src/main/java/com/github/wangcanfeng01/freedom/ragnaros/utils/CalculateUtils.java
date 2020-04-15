@@ -1,6 +1,8 @@
 package com.github.wangcanfeng01.freedom.ragnaros.utils;
 
 
+import org.springframework.util.ObjectUtils;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
@@ -11,12 +13,12 @@ import java.util.Objects;
  *
  * @author wangcanfeng
  */
-public class CalculateUtils {
+public final class CalculateUtils {
 
     /**
      * 默认的精确度
      */
-    public static final int DEFAULT_PRECISION = 2;
+    public static final int DEFAULT_PRECISION = 4;
 
     private CalculateUtils() {
         // 私有构造函数
@@ -40,8 +42,27 @@ public class CalculateUtils {
         if (null == x || null == y) {
             return null;
         }
-        BigDecimal dX = new BigDecimal(x.toString());
-        BigDecimal dY = new BigDecimal(y.toString());
+        return addition(x.toString(),y.toString(),precision);
+    }
+
+    /**
+     * 功能描述: x+y,并做四舍五入，保留指定位数的小数
+     * 2019/6/5-10:23
+     *
+     * @param x         被加数
+     * @param y         加数
+     * @param precision 精确到小数点后几位
+     * @return java.lang.String
+     * @author wangcanfeng
+     * @since 1.0.0
+     */
+    public static String addition(String x, String y, int precision) {
+        //  x和y都不能为空
+        if (ObjectUtils.isEmpty(x) || ObjectUtils.isEmpty(y)) {
+            return null;
+        }
+        BigDecimal dX = new BigDecimal(x);
+        BigDecimal dY = new BigDecimal(y);
         BigDecimal result = dX.add(dY).setScale(precision, RoundingMode.HALF_UP);
         return result.toString();
     }

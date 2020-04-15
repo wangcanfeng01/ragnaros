@@ -12,7 +12,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @author wangcanfeng
  **/
-@Component
+// 后续版本不再默认开启示例
+//@Component
 @ThroughputScan
 public class ExampleClass {
 
