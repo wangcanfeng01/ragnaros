@@ -14,4 +14,4 @@
 ```
 # 界面
 
-![ui.png](https://github.com/wangcanfeng01/ragnaros/blob/master/ui.png)
+![ui.png](https://github.com/wangcanfeng01/ragnaros/raw/master/ui.png)
