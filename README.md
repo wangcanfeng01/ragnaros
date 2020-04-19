@@ -14,4 +14,4 @@
 ```
 # 界面
 
-![展示结果](./ui.png)
+![展示结果](https://github.com/wangcanfeng01/ragnaros/master/ui.png)
