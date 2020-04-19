@@ -14,4 +14,4 @@
 ```
 # 界面
 
-![ui.png](https://github.com/wangcanfeng01/ragnaros/raw/master/ui.png)
+![ui.png](https://upload-images.jianshu.io/upload_images/8350955-1bffb2321fab1efb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
