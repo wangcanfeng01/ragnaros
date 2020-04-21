@@ -44,7 +44,7 @@ public abstract class AbstractDistributedService implements DistributedService {
      */
     private Environment environment;
 
-    void setEnvironment(Environment environment) {
+    public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
 
